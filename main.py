@@ -100,7 +100,9 @@ class MainWindow(QWidget):
         self.setLayout(main_layout)
         
         self.gp = QWidget()
-        self.gp.setWindowFlag(Qt.WindowType.SubWindow)
+        self.gp.setWindowFlag(Qt.WindowType.Tool, True)
+        self.gp.setWindowFlag(Qt.WindowType.FramelessWindowHint, True)
+        self.gp.setWindowFlag(Qt.WindowType.WindowStaysOnTopHint, True)
         self.gp.setWindowTitle("PyLauncher | Add Game")
         
         self.gp_name = QLineEdit()
@@ -309,4 +311,7 @@ if __name__ == "__main__":
     app.setStyle("fusion")
     window = MainWindow()
     window.show()
-    sys.exit(app.exec())
+    x = app.exec()
+    if CONF["save_on_close"]:
+        window.save_games()
+    sys.exit(x)
